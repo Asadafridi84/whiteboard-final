@@ -529,6 +529,9 @@ const drawLine = (x, y, drawColor, drawSize, emit = true, isStart = false) => {
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
+        onTouchStart={startDrawing}
+        onTouchMove={draw}
+        onTouchEnd={stopDrawing}
         style={{ 
           cursor: connected ? "crosshair" : "not-allowed",
           backgroundColor: "white",
@@ -549,5 +552,6 @@ const drawLine = (x, y, drawColor, drawSize, emit = true, isStart = false) => {
     </div>
   );
 };
+
 
 export default Whiteboard;
