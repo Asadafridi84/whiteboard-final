@@ -524,27 +524,50 @@ const drawLine = (x, y, drawColor, drawSize, emit = true, isStart = false) => {
         )}
       </div>
       <canvas
-        ref={canvasRef}
-        onMouseDown={startDrawing}
-        onMouseMove={draw}
-        onMouseUp={stopDrawing}
-        onMouseLeave={stopDrawing}
-        onTouchStart={startDrawing}
-        onTouchMove={draw}
-        onTouchEnd={stopDrawing}
-        style={{ 
-          cursor: connected ? "crosshair" : "not-allowed",
-          backgroundColor: "white",
-          borderRadius: "10px",
-          display: "block",
-          margin: "0 auto 20px auto",
-          border: "3px solid #4a6fa5",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.3)"
-        }}
-        width="800"
-        height="600"
-        title={connected ? "Click and drag to draw" : "Connect to server first"}
-      />
+      ref={canvasRef}
+      // Mouse events
+      onMouseDown={startDrawing}
+      onMouseMove={draw}
+      onMouseUp={stopDrawing}
+      onMouseLeave={stopDrawing}
+      // Touch events with conversion
+      onTouchStart={(e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousedown', {
+          clientX: touch.clientX,
+          clientY: touch.clientY
+       });
+       canvasRef.current.dispatchEvent(mouseEvent);
+     }}
+     onTouchMove={(e) => {
+       e.preventDefault();
+       const touch = e.touches[0];
+       const mouseEvent = new MouseEvent('mousemove', {
+         clientX: touch.clientX,
+         clientY: touch.clientY
+      });
+      canvasRef.current.dispatchEvent(mouseEvent);
+    }}
+    onTouchEnd={(e) => {
+      e.preventDefault();
+      const mouseEvent = new MouseEvent('mouseup', {});
+      canvasRef.current.dispatchEvent(mouseEvent);
+    }}
+    style={{ 
+      cursor: connected ? "crosshair" : "not-allowed",
+      backgroundColor: "white",
+      borderRadius: "10px",
+      display: "block",
+      margin: "0 auto 20px auto",
+      border: "3px solid #4a6fa5",
+      boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+      touchAction: "none"  // ← ADD THIS TO PREVENT SCROLLING
+    }}
+    width="800"
+    height="600"
+    title={connected ? "Click and drag to draw" : "Connect to server first"}
+  />
       <div style={{ textAlign: "center", color: "rgba(255, 255, 255, 0.8)" }}>
         <p>💡 Share the room name <strong>"{currentRoom}"</strong> with others to collaborate</p>
         <p style={{ fontSize: "0.9em" }}>Drawings sync automatically between all users in the same room</p>
@@ -555,3 +578,4 @@ const drawLine = (x, y, drawColor, drawSize, emit = true, isStart = false) => {
 
 
 export default Whiteboard;
+
