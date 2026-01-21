@@ -27,3 +27,7 @@ body {
   font-size: 1.2rem;
   opacity: 0.9;
 }
+canvas {
+  touch-action: none; /* Prevent browser handling of touch */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+}
