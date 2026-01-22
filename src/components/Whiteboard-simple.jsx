@@ -228,7 +228,7 @@ const drawLine = (x, y, drawColor, drawSize, emit = true, isStart = false) => {
     const { x, y } = getCanvasCoordinates(e);
     console.log(`📍 START drawing at (${x}, ${y})`);
     
-    drawOnCanvas(x, y, color, brushSize, true, true);
+    drawOnCanvas(x, y, color, brushSize, true);
 
      if (socketRef.current && connected) {
       console.log(`📤 Sending to room: ${currentRoom}`);
@@ -598,5 +598,6 @@ const drawLine = (x, y, drawColor, drawSize, emit = true, isStart = false) => {
   );
 };
 export default Whiteboard;
+
 
 
