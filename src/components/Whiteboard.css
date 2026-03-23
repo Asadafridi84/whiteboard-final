@@ -1,0 +1,54 @@
+﻿.whiteboard-simple {
+  padding: 20px;
+  background-color: #333;
+  color: white;
+  min-height: 100vh;
+  text-align: center;
+}
+.whiteboard-simple h1 {
+  margin-bottom: 20px;
+}
+.whiteboard-simple .connection-status {
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #444;
+}
+.whiteboard-simple .room-controls {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.whiteboard-simple input {
+  padding: 10px;
+  border: 1px solid #666;
+  border-radius: 5px;
+  background-color: #222;
+  color: white;
+}
+.whiteboard-simple button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2ecc71;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+.whiteboard-simple button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+.whiteboard-simple .canvas-area {
+  width: 800px;
+  height: 600px;
+  background-color: white;
+  margin: 20px auto;
+  border: 2px solid #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
