@@ -534,56 +534,29 @@ const drawLine = (x, y, drawColor, drawSize, emit = true, isStart = false) => {
     onTouchStart={(e) => {
       e.preventDefault();
       const touch = e.touches[0];
-      const rect = canvasRef.current.getBoundingClientRect();
-      const scaleX = canvasRef.current.width / canvasRef.current.offsetWidth;
-      const scaleY = canvasRef.current.height / canvasRef.current.offsetHeight;
-    
-      // Create synthetic mouse event with correct coordinates
-      const mouseEvent = {
-        nativeEvent: {
-          offsetX: (touch.clientX - rect.left) * scaleX,
-          offsetY: (touch.clientY - rect.top) * scaleY,
-          clientX: touch.clientX,
-          clientY: touch.clientY
-      }
-    };
-    
-    startDrawing(mouseEvent);
+      startDrawing({ clientX: touch.clientX, clientY: touch.clientY });
   }}
   onTouchMove={(e) => {
     e.preventDefault();
     if (!isDrawingRef.current) return;
-    
     const touch = e.touches[0];
-    const rect = canvasRef.current.getBoundingClientRect();
-    const scaleX = canvasRef.current.width / canvasRef.current.offsetWidth;
-    const scaleY = canvasRef.current.height / canvasRef.current.offsetHeight;
-    
-    const mouseEvent = {
-      nativeEvent: {
-        offsetX: (touch.clientX - rect.left) * scaleX,
-        offsetY: (touch.clientY - rect.top) * scaleY,
-        clientX: touch.clientX,
-        clientY: touch.clientY
-      }
-    };
-    
-    draw(mouseEvent);
+    draw({ clientX: touch.clientX, clientY: touch.clientY });
   }}
   onTouchEnd={(e) => {
     e.preventDefault();
     stopDrawing();
   }}
-  style={{ 
+  style={{
     cursor: connected ? "crosshair" : "not-allowed",
     backgroundColor: "white",
     borderRadius: "10px",
     display: "block",
     margin: "0 auto 20px auto",
+    maxWidth: "100%",
     border: "3px solid #4a6fa5",
     boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-    touchAction: "none",  // IMPORTANT: Prevent scrolling
-    userSelect: "none",   // Prevent text selection
+    touchAction: "none",
+    userSelect: "none",
     WebkitUserSelect: "none"
   }}
   width="800"
