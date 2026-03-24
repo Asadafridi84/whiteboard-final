@@ -304,31 +304,23 @@ useEffect(() => {
     canvas.removeEventListener('touchcancel', handleTouchEnd);
   };
 }, [color, brushSize, connected, currentRoom]); // Dependencies
-  // Define drawOnCanvas as a standalone function (move this outside of drawLine)
 const drawOnCanvas = (x, y, drawColor, drawSize, isStart = false) => {
   const canvas = canvasRef.current;
   if (!canvas) return;
-  
+
   const context = canvas.getContext("2d");
-  context.save();
-  
   context.strokeStyle = drawColor || color;
   context.lineWidth = drawSize || brushSize;
   context.lineCap = "round";
   context.lineJoin = "round";
-  
+
   if (isStart) {
     context.beginPath();
     context.moveTo(x, y);
-    console.log(`🎨 Started path at (${Math.round(x)}, ${Math.round(y)})`)
   } else {
     context.lineTo(x, y);
     context.stroke();
-    console.log(`🎨 Drew line to (${Math.round(x)}, ${Math.round(y)})`);
   }
-
-  console.log(`🎨 Drawn at (${Math.round(x)}, ${Math.round(y)}) isStart: ${isStart}`);
-  context.restore();
 };
 
 // Then define drawLine function

@@ -157,15 +157,13 @@ const Whiteboard = () => {
 const drawOnCanvas = (x, y, drawColor, drawSize, isStart = false) => {
   const canvas = canvasRef.current;
   if (!canvas) return;
-  
+
   const context = canvas.getContext("2d");
-  context.save();
-  
   context.strokeStyle = drawColor || color;
   context.lineWidth = drawSize || brushSize;
   context.lineCap = "round";
   context.lineJoin = "round";
-  
+
   if (isStart) {
     context.beginPath();
     context.moveTo(x, y);
@@ -173,8 +171,6 @@ const drawOnCanvas = (x, y, drawColor, drawSize, isStart = false) => {
     context.lineTo(x, y);
     context.stroke();
   }
-  
-  context.restore();
 
   console.log(`🎨 Drawn at (${Math.round(x)}, ${Math.round(y)}) isStart: ${isStart}`);
 };
