@@ -81,13 +81,22 @@ console.log("🔌 Connecting to server:", import.meta.env.VITE_SOCKET_URL);
       }
     });
     
+    socket.on("drawing-history", (data) => {
+      console.log("📜 Received drawing history:", data.drawings.length, "strokes");
+      if (data.roomId === currentRoomRef.current) {
+        data.drawings.forEach((drawing) => {
+          drawOnCanvas(drawing.x, drawing.y, drawing.color, drawing.size, drawing.isStart);
+        });
+      }
+    });
+
     socket.on("clear-board", (data) => {
       if (data.roomId === currentRoomRef.current) {
         clearCanvas(false);
         console.log("🧹 Canvas cleared by server");
       }
     });
-    
+
     socket.on("connect_error", (err) => {
       console.error("Connection error:", err.message);
     });
